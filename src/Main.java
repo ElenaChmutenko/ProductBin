@@ -4,7 +4,7 @@ public class Main {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        ArrayList<String> bin = new ArrayList<>(30);
+        List<String> bin = new ArrayList<>();
         bin.add("Молоко");
         bin.add("Хлебцы диетические");
         bin.add("Хлеб Кефирный");
@@ -15,7 +15,7 @@ public class Main {
         sb.append("3 - удалить товар из корзины\n4 - поиск покупки\nВыберите операцию:");
         while (true) {
             int operation;
-            System.out.println(sb.toString());
+            System.out.println(sb);
             try {
                 String input = scanner.nextLine();
                 if ("end".equals(input)) {
@@ -45,7 +45,6 @@ public class Main {
 
             }
         }
-        bin.trimToSize(); // after the end of operations trims the capacity of this ArrayList to list's current size
     }
 
     // Method requests which purchase to add to the list,
@@ -60,21 +59,18 @@ public class Main {
         sbAdded.append("\nИтого в списке покупок: ");
         sbAdded.append(bin.size());
         sbAdded.append("\n");
-        System.out.println(sbAdded.toString());
+        System.out.println(sbAdded);
 
         return bin;
     }
 
     // Method displays all purchases with their numbering
     public static void showListProducts(List<String> bin) {
-        StringBuilder sb1 = new StringBuilder("Список покупок:\n");
+        System.out.println("Список покупок:");
         for (int i = 0; i < bin.size(); i++) {
-            sb1.append(i + 1);
-            sb1.append(". ");
-            sb1.append(bin.get(i));
-            sb1.append("\n");
+            System.out.println(i + 1 + ". " + bin.get(i));
         }
-        System.out.println(sb1.toString());
+        System.out.println();
     }
     // Method displays all purchases and prompts to enter either the number of the purchase to be deleted
     // or the name of the purchase, then deletes it if found and displays purchases again
@@ -89,21 +85,19 @@ public class Main {
                 sbDel.append(bin.get(indexDel));
                 bin.remove(indexDel);
                 sbDel.append("\" удалён");
-                System.out.println(sbDel.toString());
+                System.out.println(sbDel);
                 break;
             } catch (IndexOutOfBoundsException exc1) {
                 System.out.println("Не верно введён номер покупки\n");
-                continue;
             } catch (NumberFormatException exc2) {
                 String productDel = toUpperLetter(input);
                 sbDel.append(productDel);
                 if (bin.remove(productDel)) {
                     sbDel.append("\" удалён");
-                    System.out.println(sbDel.toString());
+                    System.out.println(sbDel);
                     break;
                 } else {
                     System.out.println("Товар не найден");
-                    continue;
                 }
             }
         }
@@ -129,10 +123,10 @@ public class Main {
         // check if the query found
         if (sbFound.length() <= sizeSb) {
             StringBuilder sbNotFound = new StringBuilder("Покупка не найдена\n");
-            System.out.println(sbNotFound.toString());
+            System.out.println(sbNotFound);
             return false;
         } else {
-            System.out.println(sbFound.toString());
+            System.out.println(sbFound);
             return true;
         }
     }
